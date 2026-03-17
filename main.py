@@ -20,6 +20,18 @@ def register_clients(clients,name,email):
 
 #Todo: agregar lo demas 
 
+def register_products(products, name, price):
+    product_id = id_generate(products)
+
+    product = (product_id, name, price)
+    products[product_id] = product
+    return product_id, products
+
+
+
+
+
+
 clients = {}
 products = {}
 ordes = {}
@@ -40,5 +52,9 @@ while op != 0:
 
         print(f"registered client {id_clients}" )
         print("------------------------------------------------")
-
+    elif option == 2:
+        name_product = input("into name: ")
+        price_product = float(input("Into price: "))
+        id_product, products = register_products(products, name_product, price_product)
+        print(f"Registered product {id_product}")
 
