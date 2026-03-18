@@ -2,7 +2,7 @@
 def id_generate(dictionary):
     if dictionary:
         return max(dictionary.keys()) + 1
-    else:
+    else:   
         return 1
     
 # ==============================
@@ -24,8 +24,8 @@ clients = {}
 products = {}
 ordes = {}
 
-op = 1
-while op != 0:
+option = 1
+while option != 0:
     print("Customer order Management System ")
     print("======== MENU =========")
     print("1.Register clients\n 2.Register Products\n 3.Create Order\n 4.Check Order\n 5.Calculate income\n 6.final report\n 0.exit" )
