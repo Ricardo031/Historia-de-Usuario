@@ -64,16 +64,12 @@ def check_orders(orders):
 
 #%Todo: agregar lo demas 
 
-
-
-
-
 clients = {}
 products = {}
 orders = {}
 
-op = 1
-while op != 0:
+option = 1
+while option != 0:
     print("\033[1;32mCustomer order Management System \033[0m")
     print("======== MENU =========")
     print(" 1.Register clients\n 2.Register Products\n 3.Create Order\n 4.Check Order\n 5.Calculate income\n 6.final report\n 0.exit" )
@@ -104,3 +100,5 @@ while op != 0:
      
     elif option == 4:
         print(check_orders(orders))
+    
+   
