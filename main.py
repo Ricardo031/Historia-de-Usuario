@@ -38,10 +38,10 @@ def register_products(products, name, price):
 
 clients = {}
 products = {}
-ordes = {}
+orders = {}
 
-op = 1
-while op != 0:
+option = 1
+while option != 0:
     print("\033[1;32mCustomer order Management System \033[0m")
     print("======== MENU =========")
     print(" 1.Register clients\n 2.Register Products\n 3.Create Order\n 4.Check Order\n 5.Calculate income\n 6.final report\n 0.exit" )
@@ -53,7 +53,7 @@ while op != 0:
         email_clients = input("into your email: ")
         id_clients, clients = register_clients(clients, name_clients,email_clients)
 
-        print(f"registered client {id_clients}" )
+        print(f"registered {name_clients} with your id: {id_clients} " )
         print("------------------------------------------------")
 
     elif option == 2:
