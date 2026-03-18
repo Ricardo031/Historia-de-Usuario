@@ -24,7 +24,7 @@ Code Explanation
 - Menu (while op != 0: ):
   A loop ("while option != 0") keeps the program running until the user selects option 0 (exit).
 
-´´´python
+```python
 while op != 0:
     print("\033[1;32mCustomer order Management System \033[0m")
     print("======== MENU =========")
@@ -60,8 +60,7 @@ while op != 0:
         print(mensaje)
         print("\033[31m" + "It's done" + "\033[0m")
      
-     
-´´´
+```
 - Menu options:
   The program displays a menu so the user can choose what action to perform.
 
