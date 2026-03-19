@@ -1,3 +1,13 @@
+import os
+def limpiar():
+    os.system('cls' if os.name=='nt' else 'clear')
+rojo = "\033[31m"
+res = "\033[0m"
+neg = "\033[1m"
+ver = "\033[32m"
+ama = "\033[33m"
+def sep():
+    print(f"{rojo+neg}⠶{res}" * 30)
 # ==============================
 #* Genaracion de ID 
 # ==============================
@@ -9,7 +19,7 @@ def id_generate(dictionary):
     
 # ==============================
 #* Registrar Clientes
-# ==============================
+# ======================= * 50=======
 def register_clients(clients,name,email):
     client_id = id_generate(clients)
 
@@ -72,6 +82,21 @@ def calculate_income(orders):
     
     return total_day
 
+def final_record(orders):
+
+    
+    if not orders:
+        return rojo + neg +" ✘ No hay nada registrado" +res
+    total_orders = len(orders)
+    total_income = calculate_income(orders)
+    record = "           FINAL RECORD              "
+    record += f"\n total income: {total_income}"
+    record += f"\n total orders. {total_orders}\n"
+    record += "orders:\n"
+    for id_orders,datos in orders.items():
+        record += f"ID:\n {id_orders}: {datos['clients']} \nbought {datos['product']} \nquantity {datos['quantity']}\n valuer {datos['total']}"
+    return record      
+
 
 #%Todo: agregar lo demas 
 
@@ -81,12 +106,14 @@ orders = {}
 
 option = 1
 while option != 0:
-    print("\033[1;32mCustomer order Management System \033[0m")
-    print("\n======== MENU =========")
+    print(ama +"Customer order Management System"+ res)
+    print(f"\n          {ver + neg} MENU{res} ")
+    sep()
     print(" 1.Register clients\n 2.Register Products\n 3.Create Order\n 4.Check Order\n 5.Calculate income\n 6.final report\n 0.exit" )
 
     option = input("choose a option: ").strip()
-
+#error en la creacion de ordenes
+#no deberia dejar crear ordenes ni no hay producto ni cliente
     if option == "1":
         name_clients = input("into name: ")
         email_clients = input("into your email: ")
@@ -115,6 +142,9 @@ while option != 0:
     elif option == "5":
         total_day=calculate_income(orders)
         print(f"El total de ventas del dia es {total_day}")
+    
+    elif option == "6":
+       print(final_record(orders)) 
 
     elif option == "0":
         option=int(option)
