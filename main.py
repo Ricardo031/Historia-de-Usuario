@@ -21,7 +21,7 @@ def register_clients(clients,name,email):
     return client_id, clients
 
 # ==============================
-#* Registrar Productos
+#* Registrar products
 # ==============================
 def register_products(products, name, price):
     product_id = id_generate(products)
@@ -29,49 +29,76 @@ def register_products(products, name, price):
     product = (product_id, name, price)
     products[product_id] = product
     return product_id, products
-def create_orders(orders, clients, products, id_client, id_product, cantidad):
+
+
+# ==============================
+#* Creat Pedidos
+# ==============================
+def create_orders(orders, clients, products, id_client, id_product, quantity):
     if id_client not in clients:
-        return "Cliente no existe", orders
+        return "Cliente no existe", orders  #! camibar para que no muestre un mensaje
 
     if id_product not in products:
-        return "Producto no existe", orders
+        return "product no existe", orders  #! aqui igual 
 
-    producto = products[id_product]
-    precio = producto[2]
-
-    total = precio * cantidad
+    product = products[id_product]
+    price = product[2]
+    total = price * quantity
 
     orders_id = id_generate(orders)
 
     orders[orders_id] = {
-        "cliente": clients[id_client]["nombre"],
-        "producto": producto[1],
-        "cantidad": cantidad,
+        "clients": clients[id_client]["name"],
+        "product": product[1],
+        "quantity": quantity,
         "total": total
     }
 
-    return f"orders {orders_id} creado", orders
+    return f"orders {orders_id} created", orders
+    #! Cambiar para que solo retorne un valor
+
+# ==============================
+#* Consultar pedidos
+# ==============================
+def check_orders(orders):
+    if not orders:
+        print("There are not orders yet") #! cambiar para que no muestre el print. mejor usar un None
+    result = ""
+    for orders_id, data in orders.items():
+        result += f"ID: {orders_id}| Client: {data['clients']} | Product: {data['product']} | Quantity: {data['quantity']} | Total: {data['total']}"
+    
+    return result
+
+# ==============================
+#* Calcular ingresos
+# ==============================
+def calculate_income(orders):
+    # total_day= 0
+    # for valor in orders.values():
+    #     total_day += valor['total']
+
+    
+    total_day=sum(valor["total"]for valor in orders.values())
+
+    
+    return total_day
 
 
 #%Todo: agregar lo demas 
-
-
-
-
 
 clients = {}
 products = {}
 orders = {}
 
-op = 1
-while op != 0:
+option = 1
+while option != 0:
     print("\033[1;32mCustomer order Management System \033[0m")
-    print("======== MENU =========")
+    print("\n======== MENU =========")
     print(" 1.Register clients\n 2.Register Products\n 3.Create Order\n 4.Check Order\n 5.Calculate income\n 6.final report\n 0.exit" )
 
-    option = int(input("choose a option: "))
+    option = input("choose a option: ").strip()
 
-    if option == 1:
+    if option == "1":
         name_clients = input("into name: ")
         email_clients = input("into your email: ")
         id_clients, clients = register_clients(clients, name_clients,email_clients)
@@ -79,27 +106,30 @@ while op != 0:
         print(f"registered client {id_clients}" )
         print("------------------------------------------------")
 
-    elif option == 2:
+    elif option == "2":
         name_product = input("into name: ")
         price_product = float(input("Into price: "))
         id_product, products = register_products(products, name_product, price_product)
-        print(f"Registered product {id_product}")
-# ==============================
-#* Aca se intenta guardar los products para orders
-# ==============================
-    elif option == 3:
-        id_cliente = int(input("ID cliente: "))
-        id_producto = int(input("ID producto: "))
-        cantidad = int(input("Cantidad: "))
-        for product in products:
-            if product ["count"] >= 0:
-             print (product["name"])
+        print(f"Registered {name_product} product with {id_product}")
 
-        mensaje, pedidos = create_orders(orders, clients, products, id_cliente, id_producto, cantidad)
+    elif option == "3":
+        id_cliente = int(input("ID client: "))
+        id_product = int(input("ID product: "))
+        count = int(input("Count: "))
+        mensaje, pedidos = create_orders(orders, clients, products, id_clients, id_product, count)
         print(mensaje)
         print("\033[31m" + "It's done" + "\033[0m")
      
-     
+    elif option == "4":
+        print(check_orders(orders))
 
+    elif option == "5":
+        print(f"El total de ventas del dia es: {calculate_income(orders)}")
 
-            
+    elif option == "0":
+        option=int(option)
+
+    else:
+        print("marque una de las opciones")
+
+   
