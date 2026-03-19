@@ -62,6 +62,17 @@ def check_orders(orders):
     
     return result
 
+def calculate_income(orders):
+    # total_day=no
+    # for valor in orders.values():
+    #     total_day+=valor ["total"]
+    
+    total_day=sum (valor["total"]for valor in orders.values())
+
+    
+    return total_day
+
+
 #%Todo: agregar lo demas 
 
 clients = {}
@@ -71,12 +82,12 @@ orders = {}
 option = 1
 while option != 0:
     print("\033[1;32mCustomer order Management System \033[0m")
-    print("======== MENU =========")
+    print("\n======== MENU =========")
     print(" 1.Register clients\n 2.Register Products\n 3.Create Order\n 4.Check Order\n 5.Calculate income\n 6.final report\n 0.exit" )
 
-    option = int(input("choose a option: "))
+    option = input("choose a option: ").strip()
 
-    if option == 1:
+    if option == "1":
         name_clients = input("into name: ")
         email_clients = input("into your email: ")
         id_clients, clients = register_clients(clients, name_clients,email_clients)
@@ -84,13 +95,13 @@ while option != 0:
         print(f"registered client {id_clients}" )
         print("------------------------------------------------")
 
-    elif option == 2:
+    elif option == "2":
         name_product = input("into name: ")
         price_product = float(input("Into price: "))
         id_product, products = register_products(products, name_product, price_product)
         print(f"Registered {name_product} product with {id_product}")
 
-    elif option == 3:
+    elif option == "3":
         id_cliente = int(input("ID client: "))
         id_product = int(input("ID product: "))
         count = int(input("Count: "))
@@ -98,7 +109,17 @@ while option != 0:
         print(mensaje)
         print("\033[31m" + "It's done" + "\033[0m")
      
-    elif option == 4:
+    elif option == "4":
         print(check_orders(orders))
-    
+
+    elif option == "5":
+        total_day=calculate_income(orders)
+        print(f"El total de ventas del dia es {total_day}")
+
+    elif option == "0":
+        option=int(option)
+
+    else:
+        print("marque una de las opciones")
+
    
