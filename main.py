@@ -30,12 +30,16 @@ def register_products(products, name, price):
     products[product_id] = product
     return product_id, products
 
+
+# ==============================
+#* Creat Pedidos
+# ==============================
 def create_orders(orders, clients, products, id_client, id_product, quantity):
     if id_client not in clients:
-        return "Cliente no existe", orders
+        return "Cliente no existe", orders  #! camibar para que no muestre un mensaje
 
     if id_product not in products:
-        return "product no existe", orders
+        return "product no existe", orders  #! aqui igual 
 
     product = products[id_product]
     price = product[2]
@@ -51,23 +55,30 @@ def create_orders(orders, clients, products, id_client, id_product, quantity):
     }
 
     return f"orders {orders_id} created", orders
+    #! Cambiar para que solo retorne un valor
 
-
+# ==============================
+#* Consultar pedidos
+# ==============================
 def check_orders(orders):
     if not orders:
-        print("There are not orders yet")
+        print("There are not orders yet") #! cambiar para que no muestre el print. mejor usar un None
     result = ""
     for orders_id, data in orders.items():
         result += f"ID: {orders_id}| Client: {data['clients']} | Product: {data['product']} | Quantity: {data['quantity']} | Total: {data['total']}"
     
     return result
 
+# ==============================
+#* Calcular ingresos
+# ==============================
 def calculate_income(orders):
-    # total_day=no
+    # total_day= 0
     # for valor in orders.values():
-    #     total_day+=valor ["total"]
+    #     total_day += valor['total']
+
     
-    total_day=sum (valor["total"]for valor in orders.values())
+    total_day=sum(valor["total"]for valor in orders.values())
 
     
     return total_day
@@ -113,8 +124,7 @@ while option != 0:
         print(check_orders(orders))
 
     elif option == "5":
-        total_day=calculate_income(orders)
-        print(f"El total de ventas del dia es {total_day}")
+        print(f"El total de ventas del dia es: {calculate_income(orders)}")
 
     elif option == "0":
         option=int(option)
