@@ -5,6 +5,16 @@ This project is a simple console-based system developed in Python to manage cust
 
 We made this with a little bit design with some functions. The propuse it's simple simulate a GUI (Grafic User Interface), through the console you will use the high quality registration. We doesn't use list, only tuples and dicctionary.
 
+## Some Functions:
+- def sep
+- def id_generate
+- def register_clients
+- def register_products
+- def create_orders
+- def check_orders
+- def calculate_income
+- def final_record
+
 Features
 
 - Register clients
