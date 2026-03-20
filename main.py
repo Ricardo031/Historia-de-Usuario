@@ -36,7 +36,7 @@ def dibujar_tabla(headers, filas):
 
 
 
-def spinner(mensaje="Cargando", duracion=2):
+def spinner(mensaje="Charging", duracion=2):
     frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
     fin = time.time() + duracion
     i = 0
@@ -44,11 +44,11 @@ def spinner(mensaje="Cargando", duracion=2):
         print(f"\r{ama}{frames[i % len(frames)]}{res} {mensaje}...", end="", flush=True)
         time.sleep(0.08)
         i += 1
-    print(f"\r{ver}{neg}✔{res} {mensaje} completado.")
+    print(f"\r{ver}{neg}✔{res} {mensaje} filled.")
 
 
 
-def barra_progreso(mensaje="Procesando", duracion=2, ancho=30):
+def barra_progreso(mensaje="Processing", duracion=2, ancho=30):
     fin = time.time() + duracion
     while True:
         transcurrido = time.time() - (fin - duracion)
@@ -64,7 +64,7 @@ def barra_progreso(mensaje="Procesando", duracion=2, ancho=30):
 
 
 
-def puntos(mensaje="Cargando", duracion=2):
+def puntos(mensaje="Charging", duracion=2):
     frames = ["   ", ".  ", ".. ", "..."]
     fin = time.time() + duracion
     i = 0
@@ -72,7 +72,7 @@ def puntos(mensaje="Cargando", duracion=2):
         print(f"\r{ama}{mensaje}{frames[i % len(frames)]}{res}", end="", flush=True)
         time.sleep(0.3)
         i += 1
-    print(f"\r{ver}{neg}✔ {mensaje} listo.{res}     ")
+    print(f"\r{ver}{neg}✔ {mensaje} ready.{res}     ")
 
 # ==========================================
 #* Funcion de verificacion de @gmail.com
@@ -97,14 +97,14 @@ def pedir_int(mensaje):
     try:
         return int(input(mensaje))
     except ValueError:
-        error("Debes ingresar un número entero")
+        error("You must enter a whole number")
         return None
  
 def pedir_float(mensaje):
     try:
         return float(input(mensaje))
     except ValueError:
-        error("Debes ingresar un número válido")
+        error("You must enter a valid number")
         return None
  
 # ==============================
@@ -182,7 +182,7 @@ def calculate_income(orders):
  
 def final_record(orders):
     if not orders:
-        return rojo + neg + " ✘ No hay nada registrado" + res
+        return rojo + neg + " ✘ There is nothing registered" + res
     total_orders = len(orders)
     total_income = calculate_income(orders)
     record = "           FINAL RECORD              "
@@ -211,13 +211,13 @@ while option != 0:
         print()
         name_clients = input("   Into name: ").strip()
         if not name_clients:
-            error("El nombre y el email no pueden estar vacíos")
+            error("The name and email fields cannot be empty.")
         else:
             email_clients = input("into your email: ").strip()
             if not validar_email(email_clients):
-                error("El email debe tener palabras antes y terminar en @gmail.com")
+                error("The email address must include words before and end with @gmail.com")
             else:
-                spinner("Registrando cliente", duracion=1.5)
+                spinner("Registering client", duracion=1.5)
                 id_clients, clients = register_clients(clients, name_clients, email_clients)
                 ok(f"registered client {id_clients}")
                 print("------------------------------------------------")
@@ -229,13 +229,13 @@ while option != 0:
  
         # validacion: nombre vacio o precio invalido o negativo
         if not name_product:
-            error("El nombre del producto no puede estar vacío")
+            error("The product name cannot be empty.")
         elif price_product is None:
             pass  # pedir_float ya mostró el error
         elif price_product <= 0:
-            error("El precio debe ser mayor a 0")
+            error("The price must be greater than 0")
         else:
-            spinner("Registrando producto", duracion=1.5)
+            spinner("Registering product", duracion=1.5)
             id_product, products = register_products(products, name_product, price_product)
             ok(f"Registered {name_product} product with id {id_product}")
  
@@ -244,9 +244,9 @@ while option != 0:
 
         # validacion: que existan clientes y productos antes de pedir datos
         if not clients:
-            error("No hay clientes registrados. Registra uno primero")
+            error("No clients are registered. Register one first.")
         elif not products:
-            error("No hay productos registrados. Registra uno primero")
+            error("No products are registered. Register one first.")
         else:
             id_cliente = pedir_int("ID client: ")
             id_product = pedir_int("ID product: ")
@@ -256,24 +256,24 @@ while option != 0:
             if id_cliente is None or id_product is None or count is None:
                 pass  # pedir_int ya mostró el error
             elif count <= 0:
-                error("La cantidad debe ser mayor a 0")
+                error("The amount must be greater than 0")
             else:
                 orders_id, orders = create_orders(orders, clients, products, id_cliente, id_product, count)
  
                 # validacion: que el cliente y producto existan en el diccionario
                 if orders_id is None:
-                    error("El ID de cliente o producto no existe")
+                    error("The customer or product ID does not exist")
                 else:
                     ok(f"orders {orders_id} created")
                     print(ama + neg +"It's done"+ res)
-                    barra_progreso("Creando pedido", duracion=1.5)
-                    print(ver+neg+"Pedido creado"+ res )
+                    barra_progreso("Creating order", duracion=1.5)
+                    print(ver+neg+"Order created"+ res )
     elif option == "4":
         limpiar()
         if not orders:
-            error("No hay pedidos aún")
+            error("There are no orders yet")
         else:
-            headers = ["ID", "Cliente", "Producto", "Cantidad", "Total"]
+            headers = ["ID", "Client", "Product","Unit product", "Amount", "Total"]
             filas = [
                 [oid, d["clients"], d["product"],f"${d['unit_price']:.2f}", d["quantity"], f"${d['total']:.2f}"]
                 for oid, d in orders.items()
@@ -283,7 +283,7 @@ while option != 0:
     elif option == "5":
         limpiar()
         total_day = calculate_income(orders)
-        print(f"El total de ventas del dia es {total_day}")
+        print(f"Total sales for the day is {total_day}")
     
     elif option == "6":
         limpiar()
@@ -292,16 +292,16 @@ while option != 0:
     elif option == "0":
         limpiar()
         option = int(option)
-        barra_progreso("Cerrando cistema", duracion=1.5)
+        barra_progreso("closing system", duracion=1.5)
         limpiar()
         sep()
         print()
-        print(ama+neg+" Muchas gracias por usar este sistema      "+res)
+        print(ama+neg+" Thank you very much for using this system      "+res)
         print()
         sep()
  
     else:
-        error("marque una de las opciones")
+        error("Please select one of the options")
 
 
    
