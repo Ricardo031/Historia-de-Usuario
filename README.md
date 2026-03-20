@@ -3,6 +3,8 @@ Customer Order Management System
 
 This project is a simple console-based system developed in Python to manage customers, products, and orders.
 
+We made this with a little bit design with some functions. The propuse it's simple simulate a GUI (Grafic User Interface), through the console you will use the high quality registration. We doesn't use list, only tuples and dicctionary.
+
 Features
 
 - Register clients
@@ -23,6 +25,7 @@ Code Explanation
 
 - Menu (while op != 0: ):
   A loop ("while option != 0") keeps the program running until the user selects option 0 (exit).
+
 
 ```python
 while op != 0:
