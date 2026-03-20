@@ -190,7 +190,7 @@ def final_record(orders):
     record += f"\n total orders. {total_orders}\n"
     record += "orders:\n"
     for id_orders, datos in orders.items():
-        record += f"ID:\n {id_orders}: {datos['clients']} \nbought {datos['product']} \nquantity {datos['quantity']}\n valuer {datos['total']}"
+        record += f"ID:\n {id_orders}: {datos['clients']} \nbought: {datos['product']} \nquantity: {datos['quantity']}\n valuer: {datos['total']}"
     return record      
 #========================================================================================================================
 #========================================================================================================================
