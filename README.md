@@ -15,14 +15,7 @@ It is commonly used in command-line interfaces.
 ```python
 def sep():
     print(f"{rojo+neg}⠶{res}" * 30)
-# ==============================
-#* Genaracion de ID 
-# ==============================
-def id_generate(dictionary):
-    if dictionary:
-        return max(dictionary.keys()) + 1
-    else:
-        return 1
+
 ```
 ---
 
