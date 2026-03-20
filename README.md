@@ -4,16 +4,140 @@ Customer Order Management System
 This project is a simple console-based system developed in Python to manage customers, products, and orders.
 
 We made this with a little bit design with some functions. The propuse it's simple simulate a GUI (Grafic User Interface), through the console you will use the high quality registration. We doesn't use list, only tuples and dicctionary.
+# Some functions
+## sep()
+This function prints a long horizontal line in the console.
+It does not return any value because its purpose is visual only.
+It uses special characters and color variables to format the output.
+Its main goal is to separate sections in the program.
+This improves readability when many results are displayed.
+It is commonly used in command-line interfaces.
+```python
+def sep():
+    print(f"{rojo+neg}⠶{res}" * 30)
+# ==============================
+#* Genaracion de ID 
+# ==============================
+def id_generate(dictionary):
+    if dictionary:
+        return max(dictionary.keys()) + 1
+    else:
+        return 1
+```
+---
 
-## Some Functions:
-- def sep
-- def id_generate
-- def register_clients
-- def register_products
-- def create_orders
-- def check_orders
-- def calculate_income
-- def final_record
+## id_generate()
+This function generates a unique numeric identifier.
+It checks the existing keys in a dictionary.
+If there are elements, it takes the largest key and adds one.
+If the dictionary is empty, it starts counting from one.
+This ensures that no two elements share the same ID.
+It is used as a base for all registration functions.
+
+```python
+def register_clients(clients,name,email):
+    client_id = id_generate(clients)
+
+    clients[client_id] = {
+        "name": name,
+        "email": email
+    }
+
+    return client_id, clients
+```
+---
+
+## register_clients()
+This function stores a new client in the system.
+It first generates a unique ID using id_generate.
+Then it creates a dictionary with name and email.
+This information is stored using the ID as the key.
+The function returns both the ID and updated data.
+It allows consistent and structured client management.
+
+
+---
+
+## register_products
+This function registers a new product in the system.
+It generates a unique product ID automatically.
+Then it creates a tuple with id, name, and price.
+This tuple is stored inside the products dictionary.
+The function returns the ID and updated dictionary.
+It standardizes how products are saved and accessed.
+```python
+def register_products(products, name, price):
+    product_id = id_generate(products)
+
+    product = (product_id, name, price)
+    products[product_id] = product
+    return product_id, products
+
+```
+
+---
+
+## create_orders
+This function creates a new order in the system.
+It verifies that the client and product exist before proceeding.
+If any of them is missing, it returns an error message.
+If valid, it calculates the total using price and quantity.
+Then it stores all order details in a dictionary.
+It returns a confirmation message and updated orders.
+
+```python
+def create_orders(orders, clients, products, id_client, id_product, quantity):
+    if id_client not in clients:
+        return "Cliente no existe", orders  #! camibar para que no muestre un mensaje
+
+    if id_product not in products:
+        return "product no existe", orders  #! aqui igual 
+
+    product = products[id_product]
+    price = product[2]
+    total = price * quantity
+
+    orders_id = id_generate(orders)
+
+    orders[orders_id] = {
+        "clients": clients[id_client]["name"],
+        "product": product[1],
+        "quantity": quantity,
+        "total": total
+    }
+
+    return f"orders {orders_id} created", orders
+    #! Cambiar para que solo retorne un valor
+```
+---
+
+## check_orders
+This function retrieves all stored orders.
+If there are no orders, it notifies that the list is empty.
+If there are orders, it builds a text with all details.
+Each order includes client, product, quantity, and total.
+The result is returned as a single string.
+It is mainly used for displaying information.
+
+---
+
+## calculate_income
+This function calculates the total income from orders.
+It iterates over all stored orders in the dictionary.
+For each order, it extracts the total value.
+Then it sums all totals into a single number.
+It uses a compact sum expression for efficiency.
+The result represents total earnings.
+
+---
+
+## final_record
+This function generates a final summary of the system.
+If there are no orders, it returns a message indicating it.
+Otherwise, it calculates total income and order count.
+It builds a formatted text with all relevant information.
+This includes totals and detailed order descriptions.
+It serves as a final report of system activity.
 
 Features
 
