@@ -35,15 +35,11 @@ This ensures that no two elements share the same ID.
 It is used as a base for all registration functions.
 
 ```python
-def register_clients(clients,name,email):
-    client_id = id_generate(clients)
-
-    clients[client_id] = {
-        "name": name,
-        "email": email
-    }
-
-    return client_id, clients
+def id_generate(dictionary):
+    if dictionary:
+        return max(dictionary.keys()) + 1
+    else:
+        return 1
 ```
 ---
 
@@ -55,7 +51,17 @@ This information is stored using the ID as the key.
 The function returns both the ID and updated data.
 It allows consistent and structured client management.
 
+```python
+def register_clients(clients,name,email):
+    client_id = id_generate(clients)
 
+    clients[client_id] = {
+        "name": name,
+        "email": email
+    }
+
+    return client_id, clients
+```
 ---
 
 ## register_products
@@ -119,6 +125,16 @@ Each order includes client, product, quantity, and total.
 The result is returned as a single string.
 It is mainly used for displaying information.
 
+```python
+def check_orders(orders):
+    if not orders:
+        print("There are not orders yet") #! cambiar para que no muestre el print. mejor usar un None
+    result = ""
+    for orders_id, data in orders.items():
+        result += f"ID: {orders_id}| Client: {data['clients']} | Product: {data['product']} | Quantity: {data['quantity']} | Total: {data['total']}"
+    
+    return result
+```
 ---
 
 ## calculate_income
@@ -128,7 +144,19 @@ For each order, it extracts the total value.
 Then it sums all totals into a single number.
 It uses a compact sum expression for efficiency.
 The result represents total earnings.
+ ```python
+def calculate_income(orders):
+    # total_day= 0
+    # for valor in orders.values():
+    #     total_day += valor['total']
 
+    
+    total_day=sum(valor["total"]for valor in orders.values())
+
+    
+    return total_day
+
+```
 ---
 
 ## final_record
@@ -138,7 +166,23 @@ Otherwise, it calculates total income and order count.
 It builds a formatted text with all relevant information.
 This includes totals and detailed order descriptions.
 It serves as a final report of system activity.
+```python
+def final_record(orders):
 
+    
+    if not orders:
+        return rojo + neg +" ✘ No hay nada registrado" +res
+    total_orders = len(orders)
+    total_income = calculate_income(orders)
+    record = "           FINAL RECORD              "
+    record += f"\n total income: {total_income}"
+    record += f"\n total orders. {total_orders}\n"
+    record += "orders:\n"
+    for id_orders,datos in orders.items():
+        record += f"ID:\n {id_orders}: {datos['clients']} \nbought {datos['product']} \nquantity {datos['quantity']}\n valuer {datos['total']}"
+    return record      
+
+```
 Features
 
 - Register clients
@@ -159,7 +203,9 @@ Code Explanation
 
 - Menu (while op != 0: ):
   A loop ("while option != 0") keeps the program running until the user selects option 0 (exit).
-
+## Why we use "while"?
+### The reason:
+- It's simple but it would be the "main part of the code" that encorges to make show te options and create the conditions, arround this conditions "if" and "elif" work the menu options. It's simple and easy to documentated them.
 
 ```python
 while op != 0:
@@ -196,6 +242,22 @@ while op != 0:
         mensaje, pedidos = create_orders(orders, clients, products, id_cliente, id_producto, cantidad)
         print(mensaje)
         print("\033[31m" + "It's done" + "\033[0m")
+
+elif option == "4":
+        print(check_orders(orders))
+
+    elif option == "5":
+        total_day=calculate_income(orders)
+        print(f"El total de ventas del dia es {total_day}")
+    
+    elif option == "6":
+       print(final_record(orders)) 
+
+    elif option == "0":
+        option=int(option)
+
+    else:
+        print("marque una de las opciones")
      
 ```
 - Menu options:
@@ -203,3 +265,6 @@ while op != 0:
 
 - User input (option variable):
   The user selects an option and enters data such as name and email when registering a client.
+
+
+
